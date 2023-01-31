@@ -2,34 +2,22 @@
 // Before focus, check that the recent app was Commander One
 
 
-const identifier = Event.on('windowDidClose', (closedwindow) => {
-  app = closedwindow.app()
-  if (!app) {
-    return
-  }  
+const identifier = Event.on('windowDidClose', (wnd) => {
+  app = wnd.app()
   name = app.name()
-  if (!name) {
-    return
-  }  
-  console.log('Window closed:', name)
+//  console.log('Window closed:', name)
   
-  if (name == 'Preview' || name == "Microsoft Word" || name == "Microsoft Excel" || name == "Microsoft Powerpoint") {
+  focus = Window.focused()
+  if ((!focus) && 
+    (name == 'Preview' || 
+     name == "Microsoft Word" || 
+     name == "Microsoft Excel" || 
+     name == "Microsoft Powerpoint")) {
     recentapp = Window.recent()[0].app()
-    if (!recentapp) {
-      return
-    }  
     name = recentapp.name()
-    if (!name) {
-      return
-    }  
-    console.log('Recent app:', name)
     if (name == "Commander One") {
-      recentapp.focus()
+        recentapp.focus()
+        console.log("Focus set to Commander One")
     }
   }
 })
-
-
-
-
-
